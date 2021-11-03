@@ -31,6 +31,9 @@ function userClick() {
       `https://maps.googleapis.com/maps/api/geocode/json?latlng=${mapsMouseEvent.latLng.lat()},${mapsMouseEvent.latLng.lng()}&key=AIzaSyAQ_OtORbNSx-qcNp0UH-WlQf22Ht_P4Mg`
     ).then((data) => {
       var locName = data.data.results[0].formatted_address;
+      if (!locName) {
+        locName = 'Unavailable';
+      }
       locService.addLoc(locName, pos.lat, pos.lng);
       appController.onGetLocs();
     });
