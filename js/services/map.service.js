@@ -3,7 +3,8 @@ export const mapService = {
   addMarker,
   panTo,
 };
-import { storageService } from './storage.service.js';
+import {locService} from "./loc.service.js"
+import { appController } from "../app.controller.js";
 
 var gMap;
 
@@ -30,10 +31,19 @@ function userClick() {
     axios(
       `https://maps.googleapis.com/maps/api/geocode/json?latlng=${mapsMouseEvent.latLng.lat()},${mapsMouseEvent.latLng.lng()}&key=AIzaSyAQ_OtORbNSx-qcNp0UH-WlQf22Ht_P4Mg`
     ).then((data) => {
-      console.log(data.data.results[0].formatted_address);
+        
+      //  var test = loadFromStorage('locations')
+      let locName = data.data.results[0].formatted_address
+      locService.addLoc(locName, pos.lat, pos.lng)
+      appController.onGetLocs()
+
     });
+    // infoWindow.open(gMap);
+    // infoWindow.setContent({});
+
     gMap.setCenter(pos);
     addMarker(pos);
+    
   });
 }
 

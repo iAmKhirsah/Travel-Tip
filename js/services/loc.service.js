@@ -1,9 +1,12 @@
 export const locService = {
   getLocs,
   findLocIdxByName,
+  addLoc
 };
-import { utilService } from './utils.js';
-import { storageService } from './storage.service.js';
+import { utilService } from "./utils.js";
+import { storageService } from "./storage.service.js";
+
+const locs = storageService.loadFromStorage('locations')|| [];
 
 const locs = [];
 function getLocs() {
@@ -26,6 +29,23 @@ function findLocIdxByName(name) {
   });
   _deleteLoc(index);
 }
+
 function _deleteLoc(index) {
   locs.splice(index, 1);
+  storageService.saveToStorage('locations', locs)
+
+}
+
+function addLoc(name, lng, lat) {
+    locs.push({
+        id: utilService.makeId(),
+        name,
+        lng,
+        lat, 
+        weather:'',
+        createdAt:Date.now(),
+        updateAt:''
+
+    })
+    storageService.saveToStorage('locations', locs)
 }
