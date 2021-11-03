@@ -50,15 +50,16 @@ function panTo(lat, lng) {
 }
 
 function _connectGoogleApi() {
-  if (window.google) return Promise.resolve();
-  const API_KEY = 'AIzaSyAQ_OtORbNSx-qcNp0UH-WlQf22Ht_P4Mg';
-  var elGoogleApi = document.createElement('script');
-  elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}`;
-  elGoogleApi.async = true;
-  document.body.append(elGoogleApi);
+    if (window.google) return Promise.resolve()
+    const API_KEY = 'AIzaSyAPv0kAO_yu0vjQvzYhiwV0bB3ETHIyvwo'; 
+    var elGoogleApi = document.createElement('script');
+    elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}`;
+    elGoogleApi.async = true;
+    document.body.append(elGoogleApi);
 
-  return new Promise((resolve, reject) => {
-    elGoogleApi.onload = resolve;
-    elGoogleApi.onerror = () => reject('Google script failed to load');
-  });
+    return new Promise((resolve, reject) => {
+        elGoogleApi.onload = resolve;
+        elGoogleApi.onerror = () => reject('Google script failed to load')
+    })
 }
+
