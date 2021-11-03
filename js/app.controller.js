@@ -34,7 +34,7 @@ function onGetLocs() {
   locService.getLocs().then((locs) => {
     console.log("Locations:", locs);
     var strHtml = locs.map((location) => {
-      return ` <div> Name:${location.name} ,lat:${location.lat}, lang:${location.lng} </div><button onclick="onPanTo(${location.lat},${location.lng})">Go</button><button onclick="onDeleteLoc('${location.name}')">Delete</button> `;
+      return `<div> Name:${location.name} ,lat:${location.lat}, lang:${location.lng} </div><button onclick="onPanTo(${location.lat},${location.lng})">Go</button><button onclick="onDeleteLoc('${location.name}')">Delete</button> `;
     });
 
     document.querySelector(".locs").innerHTML = strHtml.join("");
@@ -55,7 +55,7 @@ function onGetUserPos() {
     });
 }
 function onPanTo() {
-  console.log('Panning the Map');
+  console.log("Panning the Map");
   mapService.panTo(35.6895, 139.6917);
 }
 
