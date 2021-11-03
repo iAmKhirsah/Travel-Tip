@@ -10,6 +10,7 @@ window.onPanTo = onPanTo;
 window.onGetLocs = onGetLocs;
 window.onGetUserPos = onGetUserPos;
 window.onDeleteLoc = onDeleteLoc;
+window.onUpdateLoc = onUpdateLoc;
 
 function onInit() {
   mapService
@@ -50,7 +51,7 @@ function onGetLocs() {
   locService.getLocs().then((locs) => {
     // console.log('Locations:', locs);
     var strHtml = locs.map((location) => {
-      return `<div> Name:${location.name} ,lat:${location.lat}, lang:${location.lng} </div><button onclick="onPanTo(${location.lat},${location.lng})">Go</button><button onclick="onUpdateLoc(this)">Go</button><button onclick="onDeleteLoc('${location.name}')">Delete</button> `;
+      return `<div> Name:${location.name} ,lat:${location.lat}, lang:${location.lng} </div><button onclick="onPanTo(${location.lat},${location.lng})">Go</button><button onclick="onUpdateLoc(this)">Update</button><button onclick="onDeleteLoc('${location.name}')">Delete</button> `;
     });
 
     document.querySelector('.locs').innerHTML = strHtml.join('');
@@ -81,6 +82,6 @@ function onDeleteLoc(locName) {
   onGetLocs();
 }
 
-function onUpdateLoc(something){
+function onUpdateLoc(something) {
   console.log(something);
 }
