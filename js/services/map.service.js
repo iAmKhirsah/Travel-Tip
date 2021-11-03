@@ -3,6 +3,7 @@ export const mapService = {
   addMarker,
   panTo,
 };
+import {storageService} from "./storage.service.js"
 
 var gMap;
 
@@ -31,6 +32,7 @@ function userClick() {
     axios(
       `https://maps.googleapis.com/maps/api/geocode/json?latlng=${mapsMouseEvent.latLng.lat()},${mapsMouseEvent.latLng.lng()}&key=AIzaSyAQ_OtORbNSx-qcNp0UH-WlQf22Ht_P4Mg`
     ).then((data) => {
+        
       //  var test = loadFromStorage('locations')
       console.log(data.data.results[0].formatted_address);
     });
