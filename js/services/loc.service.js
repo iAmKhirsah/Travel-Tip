@@ -1,5 +1,6 @@
 export const locService = {
-    getLocs
+    getLocs,
+    findLocIdxByName
 }
 
 
@@ -14,6 +15,18 @@ function getLocs() {
             resolve(locs);
         }, 2000)
     });
+}
+function findLocIdxByName(name){
+   var index = locs.findIndex((location) => {
+        return name === location.name
+
+    })
+    _deleteLoc(index)
+
+}
+function _deleteLoc(index){
+    locs.splice(index,1)
+    
 }
 
 

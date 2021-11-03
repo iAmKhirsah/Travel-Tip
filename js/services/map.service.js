@@ -3,7 +3,8 @@
 export const mapService = {
     initMap,
     addMarker,
-    panTo
+    panTo,
+    
 }
 
 var gMap;
@@ -40,7 +41,7 @@ function panTo(lat, lng) {
 
 function _connectGoogleApi() {
     if (window.google) return Promise.resolve()
-    const API_KEY = ''; //TODO: Enter your API Key
+    const API_KEY = 'AIzaSyAPv0kAO_yu0vjQvzYhiwV0bB3ETHIyvwo'; 
     var elGoogleApi = document.createElement('script');
     elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}`;
     elGoogleApi.async = true;
@@ -51,3 +52,4 @@ function _connectGoogleApi() {
         elGoogleApi.onerror = () => reject('Google script failed to load')
     })
 }
+
