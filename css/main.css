@@ -1,0 +1,29 @@
+body{
+    background-color: rgb(231, 226, 226);
+}
+
+.main-container{
+ width: 1000px;
+margin: 0 auto;
+margin-top: 100px;
+background-color: aqua;
+padding: 50px;
+border-radius: 10%;
+}
+.main-container >*{
+    font-size: 1.5rem;
+}
+.main-container button {
+    margin-inline-end: 7px;
+}
+
+
+.locs button{
+width: 80px;
+height: 40px;
+border-radius: 10px;
+}
+.locs button:hover{
+    background-color: lightgoldenrodyellow;
+    cursor: pointer;
+}

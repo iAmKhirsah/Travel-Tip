@@ -3,7 +3,8 @@ export const mapService = {
   addMarker,
   panTo,
 };
-import {storageService} from "./storage.service.js"
+import {locService} from "./loc.service.js"
+import { appController } from "../app.controller.js";
 
 var gMap;
 
@@ -34,12 +35,17 @@ function userClick() {
     ).then((data) => {
         
       //  var test = loadFromStorage('locations')
-      console.log(data.data.results[0].formatted_address);
+      let locName = data.data.results[0].formatted_address
+      locService.addLoc(locName, pos.lat, pos.lng)
+      appController.onGetLocs()
+
     });
     // infoWindow.open(gMap);
     // infoWindow.setContent({});
+
     gMap.setCenter(pos);
     addMarker(pos);
+    
   });
 }
 
