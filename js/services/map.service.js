@@ -25,7 +25,12 @@ function userClick() {
       lat: mapsMouseEvent.latLng.lat(),
       lng: mapsMouseEvent.latLng.lng(),
     };
-    gMap.setCenter(pos)
+    let infoWindow = new google.maps.InfoWindow({
+      position: mapsMouseEvent.latLng,
+    });
+    infoWindow.open(gMap);
+    infoWindow.setContent({});
+    gMap.setCenter(pos);
     addMarker(pos);
   });
 }
