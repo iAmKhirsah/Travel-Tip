@@ -8,7 +8,6 @@ import { storageService } from "./storage.service.js";
 
 const locs = storageService.loadFromStorage('locations')|| [];
 
-const locs = [];
 function getLocs() {
   return new Promise((resolve, reject) => {
     var locations = storageService.loadFromStorage('locations');
@@ -36,7 +35,7 @@ function _deleteLoc(index) {
 
 }
 
-function addLoc(name, lng, lat) {
+function addLoc(name, lat, lng) {
     locs.push({
         id: utilService.makeId(),
         name,

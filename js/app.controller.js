@@ -1,9 +1,8 @@
-import { locService } from "./services/loc.service.js";
-import { mapService } from "./services/map.service.js";
+import { locService } from './services/loc.service.js';
+import { mapService } from './services/map.service.js';
 export const appController = {
-    onGetLocs
-}
-
+  onGetLocs,
+};
 
 window.onload = onInit;
 window.onAddMarker = onAddMarker;
@@ -18,9 +17,10 @@ function onInit() {
     .then(() => {
       console.log('Map is ready', gMap);
     })
-    .catch(() => console.log("Error: cannot init map"));
-    locService.getLocs()
-    .then(locations => {onGetLocs();})
+    .catch(() => console.log('Error: cannot init map'));
+  locService.getLocs().then((locations) => {
+    onGetLocs();
+  });
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
@@ -60,13 +60,13 @@ function onGetUserPos() {
       console.log('err!!!', err);
     });
 }
-function onPanTo() {
+function onPanTo(lng, lat) {
   console.log('Panning the Map');
-  mapService.panTo(35.6895, 139.6917);
+  mapService.panTo(lat, lng);
 }
 
 function onDeleteLoc(locName) {
-    console.log(locName);
+  console.log(locName);
   locService.findLocIdxByName(locName);
   onGetLocs();
 }
