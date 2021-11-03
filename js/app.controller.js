@@ -10,6 +10,7 @@ window.onPanTo = onPanTo;
 window.onGetLocs = onGetLocs;
 window.onGetUserPos = onGetUserPos;
 window.onDeleteLoc = onDeleteLoc;
+window.copyToClipboard = copyToClipboard;
 
 function onInit() {
   mapService
@@ -23,7 +24,6 @@ function onInit() {
     onGetLocs();
   });
 }
-/// CHECK WHERE TO PUT IT, SINCE IT HAPPENS BEFORE MAP LOAD
 
 function queryString() {
   let aURL = new URL(location.href);
@@ -50,7 +50,7 @@ function onGetLocs() {
   locService.getLocs().then((locs) => {
     // console.log('Locations:', locs);
     var strHtml = locs.map((location) => {
-      return `<div> Name:${location.name} ,lat:${location.lat}, lang:${location.lng} </div><button onclick="onPanTo(${location.lat},${location.lng})">Go</button><button onclick="onDeleteLoc('${location.name}')">Delete</button> `;
+      return `<div class="location-row"> Name: ${location.name} , lat:${location.lat}, lang:${location.lng} </div><button onclick="onPanTo(${location.lat},${location.lng})">Go</button><button onclick="copyToClipboard(${location.lat},${location.lng})">Copy</button><button onclick="onDeleteLoc('${location.name}')">Delete</button> `;
     });
 
     document.querySelector('.locs').innerHTML = strHtml.join('');
@@ -79,4 +79,9 @@ function onDeleteLoc(locName) {
   console.log(locName);
   locService.findLocIdxByName(locName);
   onGetLocs();
+}
+
+function copyToClipboard(lat, lng) {
+  var link = `https://iamkhirsah.github.io/Travel-Tip/?lat=${lat}&lng=${lng}`;
+  navigator.clipboard.writeText(link);
 }

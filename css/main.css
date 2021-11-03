@@ -2,36 +2,58 @@ body {
   background-color: rgb(231, 226, 226);
 }
 
+/* MAIN CONTAINER */
 .main-container {
   margin: 0 auto;
+  text-align: center;
+}
+/* TABLE CONTAINER */
+.table-container {
   margin-top: 100px;
-  background-color: aqua;
+  background-color: rgb(182, 181, 179);
   padding: 50px;
-  border-radius: 10%;
+  border-radius: 5px;
 }
-.main-container > * {
-  font-size: 1.5rem;
-}
-.main-container button {
-  margin-inline-end: 7px;
-}
-
-.locs button {
-  width: 80px;
+.table-container button {
+  width: 100px;
   height: 40px;
   border-radius: 10px;
+  margin: 5px;
+  background-color: rgb(206, 187, 180);
 }
-.locs button:hover {
+.table-container button:hover {
   background-color: lightgoldenrodyellow;
   cursor: pointer;
 }
 
-.hide {
-  display: none;
+/* LOCATION ROW */
+.location-row {
+  margin: 10px;
 }
 
 /* HELPERS */
 
 .main-size {
   width: 1200px;
+}
+.hide {
+  display: none;
+}
+
+@media (max-width: 1200px) {
+  .main-size {
+    width: 865px;
+  }
+}
+
+@media (max-width: 860px) {
+    .main-size {
+        width: 740px
+    }
+}
+
+@media (max-width: 740px) {
+    .main-size {
+        width: 450px;
+    }
 }
