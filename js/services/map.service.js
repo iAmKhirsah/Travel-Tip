@@ -5,7 +5,6 @@ export const mapService = {
 };
 import { locService } from './loc.service.js';
 import { appController } from '../app.controller.js';
-
 var gMap;
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
@@ -18,7 +17,7 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
     });
     userClick();
     userInput();
-    console.log('Map!', gMap);
+    // console.log('Map!', gMap);
   });
 }
 
@@ -31,10 +30,18 @@ function userClick() {
     axios(
       `https://maps.googleapis.com/maps/api/geocode/json?latlng=${mapsMouseEvent.latLng.lat()},${mapsMouseEvent.latLng.lng()}&key=AIzaSyAQ_OtORbNSx-qcNp0UH-WlQf22Ht_P4Mg`
     ).then((data) => {
-      let locName = data.data.results[0].formatted_address;
+      var locName = data.data.results[0].formatted_address;
       locService.addLoc(locName, pos.lat, pos.lng);
       appController.onGetLocs();
     });
+    axios
+      .get(
+        `https://api.openweathermap.org/data/2.5/weather?lat=${pos.lat}&lon=${pos.lng}&units=metric&appid=9efaf3cc2ecf42bee9225c99caf69523`
+      )
+      .then((weather) => {
+        /// TODO ADD THE WEATHER TO THE THING
+        console.log(weather.data.main.temp);
+      });
     gMap.setCenter(pos);
     addMarker(pos);
   });

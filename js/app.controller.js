@@ -10,19 +10,18 @@ window.onPanTo = onPanTo;
 window.onGetLocs = onGetLocs;
 window.onGetUserPos = onGetUserPos;
 window.onDeleteLoc = onDeleteLoc;
-window.onUpdateLoc = onUpdateLoc;
 
 function onInit() {
   mapService
     .initMap()
     .then(() => {
       // console.log('Map is ready', gMap);
+      queryString();
     })
     .catch(() => console.log('Error: cannot init map'));
   locService.getLocs().then((locations) => {
     onGetLocs();
   });
-  queryString();
 }
 /// CHECK WHERE TO PUT IT, SINCE IT HAPPENS BEFORE MAP LOAD
 
@@ -30,7 +29,7 @@ function queryString() {
   let aURL = new URL(location.href);
   let lat = aURL.searchParams.get('lat');
   let lng = aURL.searchParams.get('lng');
-  // console.log(+lat, +lng);
+  console.log(+lat, +lng);
   onPanTo(+lat, +lng);
 }
 
@@ -51,7 +50,7 @@ function onGetLocs() {
   locService.getLocs().then((locs) => {
     // console.log('Locations:', locs);
     var strHtml = locs.map((location) => {
-      return `<div> Name:${location.name} ,lat:${location.lat}, lang:${location.lng} </div><button onclick="onPanTo(${location.lat},${location.lng})">Go</button><button onclick="onUpdateLoc(this)">Update</button><button onclick="onDeleteLoc('${location.name}')">Delete</button> `;
+      return `<div> Name:${location.name} ,lat:${location.lat}, lang:${location.lng} </div><button onclick="onPanTo(${location.lat},${location.lng})">Go</button><button onclick="onDeleteLoc('${location.name}')">Delete</button> `;
     });
 
     document.querySelector('.locs').innerHTML = strHtml.join('');
@@ -73,15 +72,11 @@ function onGetUserPos() {
 }
 function onPanTo(lng, lat) {
   // console.log('Panning the Map');
-  mapService.panTo(lat, lng);
+  mapService.panTo(lng, lat);
 }
 
 function onDeleteLoc(locName) {
   console.log(locName);
   locService.findLocIdxByName(locName);
   onGetLocs();
-}
-
-function onUpdateLoc(something) {
-  console.log(something);
 }
