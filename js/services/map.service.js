@@ -1,43 +1,48 @@
-
-
 export const mapService = {
-    initMap,
-    addMarker,
-    panTo,
-    
-}
+  initMap,
+  addMarker,
+  panTo,
+};
 
 var gMap;
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
-    console.log('InitMap');
-    return _connectGoogleApi()
-        .then(() => {
-            console.log('google available');
-            gMap = new google.maps.Map(
-                document.querySelector('#map'), {
-                center: { lat, lng },
-                zoom: 15
-            })
-            console.log('Map!', gMap);
-        })
+  console.log('InitMap');
+  return _connectGoogleApi().then(() => {
+    console.log('google available');
+    gMap = new google.maps.Map(document.querySelector('#map'), {
+      center: { lat, lng },
+      zoom: 15,
+    });
+    userClick();
+    console.log('Map!', gMap);
+  });
+}
+
+function userClick() {
+  gMap.addListener('click', (mapsMouseEvent) => {
+    let pos = {
+      lat: mapsMouseEvent.latLng.lat(),
+      lng: mapsMouseEvent.latLng.lng(),
+    };
+    gMap.setCenter(pos)
+    addMarker(pos);
+  });
 }
 
 function addMarker(loc) {
-    var marker = new google.maps.Marker({
-        position: loc,
-        map: gMap,
-        title: 'Hello World!'
-    });
-    return marker;
+  var marker = new google.maps.Marker({
+    position: loc,
+    map: gMap,
+    title: 'Hello World!',
+  });
+  return marker;
 }
 
 function panTo(lat, lng) {
-    var laLatLng = new google.maps.LatLng(lat, lng);
-    gMap.panTo(laLatLng);
+  var laLatLng = new google.maps.LatLng(lat, lng);
+  gMap.panTo(laLatLng);
 }
-
-
 
 function _connectGoogleApi() {
     if (window.google) return Promise.resolve()
