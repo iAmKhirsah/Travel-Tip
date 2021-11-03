@@ -31,20 +31,16 @@ function onAddMarker() {
 }
 
 function onGetLocs() {
-    locService.getLocs()
-        .then(locs => {
-            console.log('Locations:', locs)
-            var srtHtml = locs.map(location => {
-                return ` <div> Name:${location.name} ,lat:${location.lat}, lang:${location.lng} </div><button onclick="onPanTo(${location.lat},${location.lng})">Go</button><button onclick="onDeleteLoc('${location.name}')">Delete</button> `
-            });
+  locService.getLocs().then((locs) => {
+    console.log('Locations:', locs);
+    var srtHtml = locs.map((location) => {
+      return ` <div> Name:${location.name} ,lat:${location.lat}, lang:${location.lng} </div><button onclick="onPanTo(${location.lat},${location.lng})">Go</button><button onclick="onDeleteLoc('${location.name}')">Delete</button> `;
+    });
 
-            document.querySelector('.locs').innerHTML = srtHtml.join('')
-           
-        })
-        
-    }
-   
-    
+    document.querySelector('.locs').innerHTML = srtHtml.join('');
+  });
+}
+
 function onGetUserPos() {
   getPosition()
     .then((pos) => {
@@ -52,18 +48,17 @@ function onGetUserPos() {
       document.querySelector(
         '.user-pos'
       ).innerText = `Latitude: ${pos.coords.latitude} - Longitude: ${pos.coords.longitude}`;
+      mapService.panTo(pos.coords.latitude, pos.coords.longitude);
     })
     .catch((err) => {
       console.log('err!!!', err);
     });
 }
 function onPanTo() {
-    console.log('Panning the Map');
-    mapService.panTo(35.6895, 139.6917);
+  console.log('Panning the Map');
+  mapService.panTo(35.6895, 139.6917);
 }
 
-function onDeleteLoc(locName){
-   locService.findLocIdxByName(locName)
-    
-
+function onDeleteLoc(locName) {
+  locService.findLocIdxByName(locName);
 }
