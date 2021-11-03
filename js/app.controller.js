@@ -60,9 +60,9 @@ function onGetUserPos() {
       console.log('err!!!', err);
     });
 }
-function onPanTo() {
+function onPanTo(lat, lng) {
   console.log('Panning the Map');
-  mapService.panTo(35.6895, 139.6917);
+  mapService.panTo(lat, lng);
 }
 
 function onDeleteLoc(locName) {
