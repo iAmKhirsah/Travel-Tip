@@ -29,6 +29,10 @@ function queryString() {
   let aURL = new URL(location.href);
   let lat = aURL.searchParams.get('lat');
   let lng = aURL.searchParams.get('lng');
+  if (lat === 0 && lng === 0) {
+    lat = 32.0749831;
+    lng = 34.9120554;
+  }
   console.log(+lat, +lng);
   onPanTo(+lat, +lng);
 }
