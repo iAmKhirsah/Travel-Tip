@@ -35,7 +35,7 @@ function _deleteLoc(index) {
 
 }
 
-function addLoc(name, lng, lat) {
+function addLoc(name, lat, lng) {
     locs.push({
         id: utilService.makeId(),
         name,

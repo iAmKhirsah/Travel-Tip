@@ -3,8 +3,8 @@ export const mapService = {
   addMarker,
   panTo,
 };
-import {locService} from "./loc.service.js"
-import { appController } from "../app.controller.js";
+import { locService } from './loc.service.js';
+import { appController } from '../app.controller.js';
 
 var gMap;
 
@@ -31,26 +31,23 @@ function userClick() {
     axios(
       `https://maps.googleapis.com/maps/api/geocode/json?latlng=${mapsMouseEvent.latLng.lat()},${mapsMouseEvent.latLng.lng()}&key=AIzaSyAQ_OtORbNSx-qcNp0UH-WlQf22Ht_P4Mg`
     ).then((data) => {
-        
       //  var test = loadFromStorage('locations')
-      let locName = data.data.results[0].formatted_address
-      locService.addLoc(locName, pos.lat, pos.lng)
-      appController.onGetLocs()
-
+      let locName = data.data.results[0].formatted_address;
+      locService.addLoc(locName, pos.lat, pos.lng);
+      appController.onGetLocs();
     });
     // infoWindow.open(gMap);
     // infoWindow.setContent({});
 
     gMap.setCenter(pos);
     addMarker(pos);
-    
   });
 }
 
 function userInput() {
   const input = document.getElementById('pac-input');
   const searchBox = new google.maps.places.SearchBox(input);
-  gMap.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+  gMap.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
   gMap.addListener('bounds_changed', () => {
     searchBox.setBounds(gMap.getBounds());
   });
@@ -63,9 +60,8 @@ function userInput() {
     markers.forEach((marker) => {
       marker.setMap(null);
     });
-    markers = [];
+    // markers = [];
     const bounds = new google.maps.LatLngBounds();
-
     places.forEach((place) => {
       if (!place.geometry || !place.geometry.location) {
         console.log('Returned place contains no geometry');
@@ -78,14 +74,21 @@ function userInput() {
         anchor: new google.maps.Point(17, 34),
         scaledSize: new google.maps.Size(25, 25),
       };
-      markers.push(
-        new google.maps.Marker({
-          map,
-          icon,
-          title: place.name,
-          position: place.geometry.location,
-        })
-      );
+      //   markers.push(
+      //     new google.maps.Marker({
+      //       map,
+      //       icon,
+      //       title: place.name,
+      //       position: place.geometry.location,
+      //     })
+      //   );
+      let position = {
+        lat: place.geometry.location.lat(),
+        lng: place.geometry.location.lng(),
+      };
+      addMarker(position);
+      locService.addLoc(place.name, position.lat, position.lng);
+      appController.onGetLocs();
       if (place.geometry.viewport) {
         bounds.union(place.geometry.viewport);
       } else {
