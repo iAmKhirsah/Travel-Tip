@@ -28,8 +28,14 @@ function userClick() {
     let infoWindow = new google.maps.InfoWindow({
       position: mapsMouseEvent.latLng,
     });
-    infoWindow.open(gMap);
-    infoWindow.setContent({});
+    axios(
+      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${mapsMouseEvent.latLng.lat()},${mapsMouseEvent.latLng.lng()}&key=AIzaSyAQ_OtORbNSx-qcNp0UH-WlQf22Ht_P4Mg`
+    ).then((data) => {
+      //  var test = loadFromStorage('locations')
+      console.log(data.data.results[0].formatted_address);
+    });
+    // infoWindow.open(gMap);
+    // infoWindow.setContent({});
     gMap.setCenter(pos);
     addMarker(pos);
   });
@@ -52,7 +58,7 @@ function panTo(lat, lng) {
 
 function _connectGoogleApi() {
   if (window.google) return Promise.resolve();
-  const API_KEY = 'AIzaSyAPv0kAO_yu0vjQvzYhiwV0bB3ETHIyvwo';
+  const API_KEY = 'AIzaSyAQ_OtORbNSx-qcNp0UH-WlQf22Ht_P4Mg';
   var elGoogleApi = document.createElement('script');
   elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}`;
   elGoogleApi.async = true;
