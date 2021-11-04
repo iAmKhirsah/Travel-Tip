@@ -2,6 +2,7 @@ export const mapService = {
   initMap,
   addMarker,
   panTo,
+  askWeather
 };
 import { locService } from './loc.service.js';
 import { appController } from '../app.controller.js';
@@ -130,3 +131,9 @@ function _connectGoogleApi() {
 {
   /* <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQ_OtORbNSx-qcNp0UH-WlQf22Ht_P4Mg&libraries=places"></script> */
 }
+
+
+function askWeather(){
+    axios(";")
+
+};

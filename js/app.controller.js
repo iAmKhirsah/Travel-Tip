@@ -17,6 +17,7 @@ function onInit() {
     .then(() => {
       console.log('Map is ready', gMap);
     })
+    mapService.askWeather()
     .catch(() => console.log('Error: cannot init map'));
   locService.getLocs().then((locations) => {
     onGetLocs();
@@ -70,3 +71,4 @@ function onDeleteLoc(locName) {
   locService.findLocIdxByName(locName);
   onGetLocs();
 }
+
