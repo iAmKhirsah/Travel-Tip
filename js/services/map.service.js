@@ -2,7 +2,6 @@ export const mapService = {
   initMap,
   addMarker,
   panTo,
-  askWeather
 };
 import { locService } from './loc.service.js';
 import { appController } from '../app.controller.js';

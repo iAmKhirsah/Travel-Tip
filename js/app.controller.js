@@ -5,7 +5,7 @@ export const appController = {
 };
 
 window.onload = onInit;
-window.onAddMarker = onAddMarker;
+// window.onAddMarker = onAddMarker;
 window.onPanTo = onPanTo;
 window.onGetLocs = onGetLocs;
 window.onGetUserPos = onGetUserPos;
@@ -19,7 +19,6 @@ function onInit() {
       // console.log('Map is ready', gMap);
       queryString();
     })
-    mapService.askWeather()
     .catch(() => console.log('Error: cannot init map'));
   locService.getLocs().then((locations) => {
     onGetLocs();
