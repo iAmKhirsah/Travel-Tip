@@ -12,10 +12,10 @@ function getLocs() {
   return new Promise((resolve, reject) => {
     var locations = storageService.loadFromStorage('locations');
     if (locations) {
-      console.log('from storage');
+      // console.log('from storage');
       resolve(locations);
     } else {
-      console.log('from here');
+      // console.log('from here');
       resolve(locs);
       storageService.saveToStorage('locations', locs);
     }

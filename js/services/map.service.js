@@ -6,7 +6,6 @@ export const mapService = {
 };
 import { locService } from './loc.service.js';
 import { appController } from '../app.controller.js';
-
 var gMap;
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
@@ -19,7 +18,7 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
     });
     userClick();
     userInput();
-    console.log('Map!', gMap);
+    // console.log('Map!', gMap);
   });
 }
 
@@ -32,14 +31,21 @@ function userClick() {
     axios(
       `https://maps.googleapis.com/maps/api/geocode/json?latlng=${mapsMouseEvent.latLng.lat()},${mapsMouseEvent.latLng.lng()}&key=AIzaSyAQ_OtORbNSx-qcNp0UH-WlQf22Ht_P4Mg`
     ).then((data) => {
-      //  var test = loadFromStorage('locations')
-      let locName = data.data.results[0].formatted_address;
+      var locName = data.data.results[0].formatted_address;
+      if (!locName) {
+        locName = 'Unavailable';
+      }
       locService.addLoc(locName, pos.lat, pos.lng);
       appController.onGetLocs();
     });
-    // infoWindow.open(gMap);
-    // infoWindow.setContent({});
-
+    axios
+      .get(
+        `https://api.openweathermap.org/data/2.5/weather?lat=${pos.lat}&lon=${pos.lng}&units=metric&appid=9efaf3cc2ecf42bee9225c99caf69523`
+      )
+      .then((weather) => {
+        /// TODO ADD THE WEATHER TO THE THING
+        console.log(weather.data.main.temp);
+      });
     gMap.setCenter(pos);
     addMarker(pos);
   });
@@ -61,7 +67,6 @@ function userInput() {
     markers.forEach((marker) => {
       marker.setMap(null);
     });
-    // markers = [];
     const bounds = new google.maps.LatLngBounds();
     places.forEach((place) => {
       if (!place.geometry || !place.geometry.location) {
@@ -75,14 +80,6 @@ function userInput() {
         anchor: new google.maps.Point(17, 34),
         scaledSize: new google.maps.Size(25, 25),
       };
-      //   markers.push(
-      //     new google.maps.Marker({
-      //       map,
-      //       icon,
-      //       title: place.name,
-      //       position: place.geometry.location,
-      //     })
-      //   );
       let position = {
         lat: place.geometry.location.lat(),
         lng: place.geometry.location.lng(),
@@ -128,12 +125,3 @@ function _connectGoogleApi() {
     elGoogleApi.onerror = () => reject('Google script failed to load');
   });
 }
-{
-  /* <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQ_OtORbNSx-qcNp0UH-WlQf22Ht_P4Mg&libraries=places"></script> */
-}
-
-
-function askWeather(){
-    axios(";")
-
-};
